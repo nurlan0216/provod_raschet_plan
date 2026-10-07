@@ -1,0 +1,4 @@
+{
+  "compilerOptions": { "checkJs": true, "target": "ES2022", "module": "ES2022", "moduleResolution": "bundler", "noEmit": true, "strict": false, "lib": ["ES2022", "DOM", "DOM.Iterable"] },
+  "include": ["js/model.js", "js/rules.js", "js/calc.js", "js/calc/*.js", "js/util.js", "js/room/*.js", "js/view3d/state.js"]
+}

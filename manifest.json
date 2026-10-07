@@ -1,0 +1,18 @@
+{
+  "id": "./index.html",
+  "name": "ЭлектроПлан",
+  "short_name": "ЭлектроПлан",
+  "description": "План квартиры, 3D-модель, расстановка электрики, проверка по нормам и смета.",
+  "lang": "ru",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F4F2EC",
+  "theme_color": "#F2B705",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
