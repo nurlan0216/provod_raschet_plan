@@ -35,8 +35,15 @@ export function mount(el, ctx) {
     svg.style.cssText = v.svgCss;
     m.hits = [];
     let h = v.h;
+    // Новые элементы «вырастают» на месте; при первом показе комнаты значки появляются по очереди.
+    const first = !m.seen;
+    const seen = (m.seen = m.seen || new Set());
+    let n = 0;
     v.pos.forEach(([i, x, y]) => {
-      h += icon(i.type, x, y, i.type === 'panel' ? 9 : 10, i.id === st.sel);
+      const fresh = !seen.has(i.id);
+      seen.add(i.id);
+      const cls = fresh ? ` class="ico pop" style="--d:${first ? Math.min(n++, 14) * 45 + 150 : 0}ms"` : '';
+      h += `<g${cls}>${icon(i.type, x, y, i.type === 'panel' ? 9 : 10, i.id === st.sel)}</g>`;
       m.hits.push({ id: i.id, x, y });
     });
     svg.innerHTML = h;

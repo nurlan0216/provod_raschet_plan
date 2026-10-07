@@ -149,3 +149,110 @@ details[open]>:not(summary){animation:rise var(--t-med) var(--ease-out)}
 .t-l{font-size:calc(var(--fs)*.9)}
 input[aria-invalid=true]{border-color:var(--red)}
 small.err{display:block;margin-top:4px;color:var(--red);font-weight:600}
+
+/* ===== анимации и эффекты (этап 36) ===== */
+:root{--spring:cubic-bezier(.34,1.56,.64,1);--glow:rgba(242,183,5,.45)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.12);opacity:1}100%{transform:none}}
+@keyframes ring{0%{box-shadow:0 0 0 0 var(--glow)}80%,100%{box-shadow:0 0 0 10px rgba(242,183,5,0)}}
+@keyframes sheen{0%,70%{transform:translateX(-120%) skewX(-20deg)}100%{transform:translateX(220%) skewX(-20deg)}}
+@keyframes slide-l{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@keyframes bolt{0%,88%,100%{transform:none;filter:none}92%{transform:scale(1.25) rotate(-8deg);filter:drop-shadow(0 0 6px var(--accent))}96%{transform:scale(1.1) rotate(5deg)}}
+@keyframes ripple{from{opacity:.28;transform:translate(-50%,-50%) scale(0)}to{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+@keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+@keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes grow-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* шапка: тонкая акцентная линия и «молния» */
+.top{position:relative;transition:box-shadow var(--t-med) var(--ease-out)}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:linear-gradient(90deg,var(--accent),var(--orange),var(--accent));background-size:200% 100%;animation:skel 6s linear infinite reverse;opacity:.9}
+.top.scrolled{box-shadow:0 4px 14px rgba(27,37,48,.12)}
+.brand{display:inline-flex;align-items:center;gap:6px}
+.brand i{font-style:normal;display:inline-block;animation:bolt 7s ease-in-out infinite}
+
+/* шаги: прогресс-линия, пружинные точки */
+.dots{position:relative}
+.dots::before,.dots::after{content:"";position:absolute;left:22px;right:22px;top:21px;height:4px;border-radius:2px;z-index:0;pointer-events:none}
+.dots::before{background:var(--line)}
+.dots::after{background:linear-gradient(90deg,var(--green-d),var(--accent));transform-origin:left;transform:scaleX(var(--p,0));transition:transform 480ms var(--ease-out)}
+.dot{z-index:1;transition:transform var(--t-fast) var(--ease-out),background-color var(--t-med) var(--ease-out),border-color var(--t-med) var(--ease-out),color var(--t-med) var(--ease-out)}
+.dot.on{animation:pop 380ms var(--spring) both,ring 2.4s ease-out 400ms infinite}
+.dot.done{animation:pop 320ms var(--spring) both}
+@media (hover:hover){.dot:hover:not(:disabled){transform:translateY(-2px) scale(1.08)}}
+.stitle{animation:slide-l var(--t-med) var(--ease-out) both}
+
+/* кнопки: ripple + блик на главной */
+button::before{content:"";position:absolute;left:var(--rx,50%);top:var(--ry,50%);width:max(220%,160px);aspect-ratio:1;border-radius:50%;background:currentColor;opacity:0;pointer-events:none;z-index:-1;transform:translate(-50%,-50%) scale(0)}
+button.rip::before{animation:ripple 560ms var(--ease-out)}
+button{transition:transform var(--t-fast) var(--ease-out),box-shadow var(--t-med) var(--ease-out),background-color var(--t-med) var(--ease-out),border-color var(--t-med) var(--ease-out)}
+@media (hover:hover){button:hover:not(:disabled):not(.dot){box-shadow:0 4px 12px rgba(27,37,48,.16);transform:translateY(-1px)}}
+button:active:not(:disabled){transition-duration:60ms}
+#b-next:not(:disabled)::before{display:none}
+#b-next:not(:disabled){box-shadow:0 0 0 0 var(--glow)}
+#b-next:not(:disabled){background-image:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);background-size:250% 100%;background-repeat:no-repeat;background-position:200% 0;animation:btn-sheen 5s ease-in-out 1.5s infinite}
+@keyframes btn-sheen{0%,60%{background-position:200% 0}100%{background-position:-100% 0}}
+button.primary{transition-property:transform,box-shadow,background-color,border-color}
+
+/* карточки и списки */
+.card{transition:transform var(--t-med) var(--ease-out),box-shadow var(--t-med) var(--ease-out)}
+@media (hover:hover){.card:not(#mount):hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(27,37,48,.14)}}
+.tpl{transition:transform var(--t-med) var(--spring),box-shadow var(--t-med) var(--ease-out),border-color var(--t-med) var(--ease-out)}
+@media (hover:hover){.tpl:hover:not(:disabled){transform:translateY(-3px) scale(1.01);border-color:var(--accent);box-shadow:0 8px 18px rgba(242,183,5,.28)}}
+.item{transition:background-color var(--t-fast) var(--ease-out),padding var(--t-med) var(--ease-out)}
+@media (hover:hover){.item:hover{background:rgba(242,183,5,.08)}}
+.tools button{transition:transform var(--t-fast) var(--spring),background-color var(--t-med) var(--ease-out),box-shadow var(--t-med) var(--ease-out)}
+.tools button.on,.tools button[aria-pressed=true]{animation:pop 300ms var(--spring)}
+
+/* поля ввода */
+input,select{transition:border-color var(--t-med) var(--ease-out),box-shadow var(--t-med) var(--ease-out),transform var(--t-fast) var(--ease-out)}
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(43,125,233,.18);outline:none}
+input[aria-invalid=true]{animation:shake 360ms ease-in-out}
+small.err{animation:rise var(--t-med) var(--ease-out)}
+
+/* проверка и смета */
+.iss{animation:slide-l var(--t-med) var(--ease-out) both;transition:transform var(--t-med) var(--ease-out),box-shadow var(--t-med) var(--ease-out)}
+@media (hover:hover){.iss:hover{transform:translateX(3px);box-shadow:var(--shadow)}}
+.iss:nth-child(2){animation-delay:60ms}.iss:nth-child(3){animation-delay:120ms}.iss:nth-child(4){animation-delay:180ms}.iss:nth-child(n+5){animation-delay:240ms}
+.okbox{animation:pop 520ms var(--spring) both;position:relative;overflow:hidden}
+.okbox::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);animation:sheen 3.6s ease-in-out 600ms infinite;pointer-events:none}
+.tot{position:relative;overflow:hidden;animation:pop 460ms var(--spring) both}
+.tot b{display:inline-block;animation:rise 600ms var(--ease-out) 150ms both}
+.warnb{animation:shake 420ms ease-in-out 200ms}
+
+/* холсты и 3D: плавное появление, мягкая загрузка */
+.canvas,.c3{animation:rise 360ms var(--ease-out) both}
+.canvas svg,.c3 canvas{animation:fade-in 520ms ease-out both}
+.c3msg{background:linear-gradient(100deg,transparent 30%,rgba(127,127,127,.12) 50%,transparent 70%) 200% 0/200% 100% no-repeat;animation:skel 1.6s linear infinite}
+.spin{border-top-color:var(--accent);border-right-color:var(--accent)}
+.ruler{transform-origin:left;animation:grow-x 600ms var(--ease-out) 300ms both}
+
+/* тост и диалог: пружина, цветная полоска */
+.toast{transition:opacity var(--t-med) var(--ease-out),transform 420ms var(--spring);transform:translateY(24px) scale(.96);border-left:6px solid var(--accent);box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.toast.show{transform:none}
+dialog[open]{animation:dlg-in 360ms var(--spring);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+dialog::backdrop{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);transition:background var(--t-med)}
+
+/* кнопка-панель снизу: мягкая тень */
+.bar{box-shadow:0 -6px 16px rgba(27,37,48,.07)}
+.rcard:not([hidden]){animation:rise 320ms var(--spring)}
+main{scroll-behavior:smooth;scrollbar-width:thin}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+
+/* ===== этап 36б: слайд шагов, появление элементов, провода ===== */
+@keyframes slide-in-r{from{opacity:0;transform:translateX(34px)}to{opacity:1;transform:none}}
+@keyframes slide-in-l{from{opacity:0;transform:translateX(-34px)}to{opacity:1;transform:none}}
+#screen.enter.fwd>*{animation-name:slide-in-r}
+#screen.enter.back>*{animation-name:slide-in-l}
+#screen.enter.fwd .list>li{animation-name:slide-in-r}
+#screen.enter.back .list>li{animation-name:slide-in-l}
+@keyframes ico-pop{0%{transform:scale(0);opacity:0}55%{transform:scale(1.35);opacity:1}100%{transform:none}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes wall-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.canvas svg g.ico.pop{transform-box:fill-box;transform-origin:center;animation:ico-pop 520ms var(--spring) var(--d,0ms) both}
+.scroll svg path.wire{stroke-dasharray:1;stroke-dashoffset:0;animation:draw 700ms var(--ease-out) var(--d,0ms) both}
+.scroll svg g.gbox{animation:rise 420ms var(--ease-out) var(--d,0ms) both}
+.canvas svg.intro rect{animation:fade-in 700ms ease-out both}
+.canvas svg.intro text{animation:fade-in 900ms ease-out 350ms both}
+.canvas svg.intro g[stroke-linecap] line{stroke-dasharray:1;animation:wall-draw 900ms var(--ease-out) both}
+.fs button:disabled{opacity:.3}

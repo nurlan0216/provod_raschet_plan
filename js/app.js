@@ -18,6 +18,7 @@ import * as room from './room.js';
 import * as check from './check.js';
 import * as estimate from './estimate.js';
 import { esc, invalid, valid } from './util.js';
+import { initFx, setProgress } from './fx.js';
 
 const STEPS = [
   { t: 'Начало', q: 'С чего начнём?' },
@@ -167,12 +168,13 @@ function go(i) {
     toast('Сначала добавьте хотя бы одну комнату или выберите шаблон.');
     i = 1;
   }
+  const dir = i < state.step ? 'back' : 'fwd';
   state.step = i;
   state.editing = null;
   state.editRoom = null;
   persist();
   render({ focusTitle: true });
-  enter();
+  enter(dir);
   $('#screen').scrollTop = 0;
 }
 
@@ -286,24 +288,35 @@ function render({ focusTitle = false } = {}) {
     h.tabIndex = -1;
     h.focus({ preventScroll: true });
   }
+  setProgress(state.step, STEPS.length);
   renderBar();
 }
 
 /* ---------- действия ---------- */
+const FS_MIN = 11,
+  FS_MAX = 26;
 function setFont(px) {
-  px = Math.max(15, Math.min(26, px));
+  px = Math.max(FS_MIN, Math.min(FS_MAX, px));
   document.documentElement.style.setProperty('--fs', px + 'px');
   store.setPref('fs', px);
+  fsButtons();
+}
+// Крайние размеры шрифта: кнопка тускнеет, чтобы было понятно, что дальше нельзя.
+function fsButtons() {
+  const n = curFont();
+  document.querySelector('[data-act="fs-"]').disabled = n <= FS_MIN;
+  document.querySelector('[data-act="fs+"]').disabled = n >= FS_MAX;
 }
 const curFont = () => parseInt(getComputedStyle(document.documentElement).getPropertyValue('--fs'), 10) || 17;
 // Короткое появление экрана. Класс снимается сразу после анимации, иначе она повторится при любом render().
-function enter() {
+function enter(dir) {
   const s = $('#screen');
-  s.classList.remove('enter');
+  s.classList.remove('enter', 'fwd', 'back');
+  if (dir) s.classList.add(dir);
   void s.offsetWidth;
   s.classList.add('enter');
   clearTimeout(enter.t);
-  enter.t = setTimeout(() => s.classList.remove('enter'), 450);
+  enter.t = setTimeout(() => s.classList.remove('enter', 'fwd', 'back'), 450);
 }
 const top = () => {
   $('#screen').scrollTop = 0;
@@ -462,7 +475,9 @@ const cur = store.loadCurrent();
 state.project = cur?.project || newProject();
 state.step = Math.min(cur?.step || 0, STEPS.length - 1);
 try {
+  initFx();
   render();
+  fsButtons();
 } catch (e) {
   console.error(e);
   recover();

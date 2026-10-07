@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-gh7NRJ7MEWdYUGMcXx0SUMJY93gUi2UqlztG1amlvwA=' 'sha256-QRppvVYxdP+lhiNWF/dQL+p/w2HWIjrKEnlVTA2lwes='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-gh7NRJ7MEWdYUGMcXx0SUMJY93gUi2UqlztG1amlvwA=' 'sha256-YmtfiWyr/rl8nrtlUZvjQ98y5o34qhbh5CSbYfFyCDI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ЭлектроПлан</title>
 <meta name="theme-color" content="#F2B705">
@@ -15,12 +15,12 @@
 <link rel="manifest" href="manifest.json">
 <link rel="preload" href="fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
-<script>try{const v=JSON.parse(localStorage.getItem('ep:pref:fs'));if(v>=15&&v<=26)document.documentElement.style.setProperty('--fs',v+'px')}catch{}</script>
+<script>try{const v=JSON.parse(localStorage.getItem('ep:pref:fs'));if(v>=11&&v<=26)document.documentElement.style.setProperty('--fs',v+'px')}catch{}</script>
 <script type="importmap">{"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}</script>
 </head>
 <body>
 <header class="top">
-  <div class="brand">⚡ ЭлектроПлан</div>
+  <div class="brand"><i aria-hidden="true">⚡</i> ЭлектроПлан</div>
   <div class="fs">
     <button data-act="fs-" aria-label="Уменьшить шрифт">А−</button>
     <button data-act="fs+" aria-label="Увеличить шрифт">А+</button>

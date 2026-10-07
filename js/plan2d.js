@@ -50,9 +50,15 @@ export function mount(el, ctx) {
     st.viewPid = S.project.id;
   }
 
+  st.intro = 0;
   function draw() {
     const out = renderPlan({ project: S.project, ov: loc.ov, view: st.view, dim, sel: st.sel });
     svg.innerHTML = out.svg;
+    if (!st.intro) {
+      st.intro = 1;
+      svg.classList.add('intro');
+      setTimeout(() => svg.classList.remove('intro'), 1200);
+    }
     $('.ruler').style.width = out.ruler;
     if (out.info !== null) $('#pi').innerHTML = out.info;
   }

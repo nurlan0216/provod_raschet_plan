@@ -2,7 +2,7 @@
 // Все файлы (в том числе Three.js и шрифты) лежат на своём origin: сеть с таймаутом 3 с (если есть кеш), иначе кеш.
 // Меняете файлы приложения — увеличьте VERSION, чтобы старый кеш удалился.
 const PREFIX = 'ep-',
-  VERSION = PREFIX + 'v17';
+  VERSION = PREFIX + 'v19';
 const SHELL = [
   './',
   'index.html',
@@ -14,6 +14,7 @@ const SHELL = [
   'icons/maskable-512.png',
   'icons/apple-touch-180.png',
   'js/app.js',
+  'js/fx.js',
   'js/model.js',
   'js/storage.js',
   'js/templates.js',

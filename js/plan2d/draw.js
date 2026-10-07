@@ -45,8 +45,8 @@ function wallsSvg(rs, sh, t, c) {
   const { s, X, Y } = c;
   const line = (sg, a, b, w) =>
     sg.o === 'h'
-      ? `<line x1="${X(a)}" y1="${Y(sg.c)}" x2="${X(b)}" y2="${Y(sg.c)}" stroke-width="${w}"/>`
-      : `<line x1="${X(sg.c)}" y1="${Y(a)}" x2="${X(sg.c)}" y2="${Y(b)}" stroke-width="${w}"/>`;
+      ? `<line pathLength="1" x1="${X(a)}" y1="${Y(sg.c)}" x2="${X(b)}" y2="${Y(sg.c)}" stroke-width="${w}"/>`
+      : `<line pathLength="1" x1="${X(sg.c)}" y1="${Y(a)}" x2="${X(sg.c)}" y2="${Y(b)}" stroke-width="${w}"/>`;
   let h = '<g style="stroke:var(--text)" stroke-linecap="square">';
   rs.forEach(r => {
     for (let wi = 0; wi < 4; wi++) {

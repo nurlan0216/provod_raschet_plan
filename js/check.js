@@ -83,7 +83,7 @@ export function schemeSvg(R) {
   const L = ['L1', 'L2', 'L3'],
     sec = s => '3×' + fmt(s);
   let s = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="290" viewBox="0 0 ${W} 290" font-family="inherit" font-size="12" fill="var(--text)" stroke="none">
-    <g stroke="var(--text)" stroke-width="2" fill="none"><path d="M60 26V44M60 88V112"/><path d="M60 112H${bus}"/></g>
+    <g stroke="var(--text)" stroke-width="2" fill="none"><path class="wire" pathLength="1" d="M60 26V44M60 88V112"/><path class="wire" pathLength="1" style="--d:200ms" d="M60 112H${bus}"/></g>
     <text x="60" y="16" text-anchor="middle" font-weight="700">${R.three ? 'Ввод 3×230 В' : 'Ввод 230 В'}</text>
     <rect x="22" y="44" width="76" height="44" rx="6" fill="var(--card)" stroke="var(--text)" stroke-width="2"/>
     <text x="60" y="63" text-anchor="middle" font-weight="700">Вводной</text><text x="60" y="80" text-anchor="middle">${R.three ? '3P ' : ''}C${R.mainA} А</text>`;
@@ -92,8 +92,8 @@ export function schemeSvg(R) {
       bad = g.overload,
       [a, b] = lines2(g.name),
       st = bad ? 'var(--red)' : 'var(--text)';
-    s += `<g><title>${esc(g.name)}: ${esc(g.rooms.join(', '))}</title>
-      <path d="M${x} 112V128M${x} 180V214" stroke="var(--text)" stroke-width="2" fill="none"/>
+    s += `<g class="gbox" style="--d:${300 + i * 90}ms"><title>${esc(g.name)}: ${esc(g.rooms.join(', '))}</title>
+      <path class="wire" pathLength="1" style="--d:${350 + i * 90}ms" d="M${x} 112V128M${x} 180V214" stroke="var(--text)" stroke-width="2" fill="none"/>
       <rect x="${x - 34}" y="128" width="68" height="52" rx="6" fill="var(--card)" stroke="${st}" stroke-width="${bad ? 3 : 2}"/>
       <text x="${x}" y="148" text-anchor="middle" font-weight="700">C${g.breaker} А</text>
       <text x="${x}" y="166" text-anchor="middle" font-size="12">${g.device === 'автомат' ? 'автомат' : 'ДА 30 мА'}</text>
